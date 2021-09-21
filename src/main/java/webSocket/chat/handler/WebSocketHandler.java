@@ -21,24 +21,34 @@ import java.util.List;
 public class WebSocketHandler extends TextWebSocketHandler {
     private List<WebSocketSession> sessions = new ArrayList<>();
 
+    /**
+     * 연결되는 시점
+     */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        log.info("접속 : {}", session);
         sessions.add(session);
-        log.info("접속 : {}",  session);
     }
 
+    /**
+     * 메세지를 전송할때,
+     */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log.info("메세지 전송 = {} : {}",session,message.getPayload());
-        for(WebSocketSession sess : sessions){
-            TextMessage msg = new TextMessage(message.getPayload());
-            sess.sendMessage(msg);
+        log.info("메시지 전송 ={} : {}", session, message.getPayload());
+        for (WebSocketSession webSocketSession : sessions) {
+            TextMessage textMessage = new TextMessage(message.getPayload());
+            webSocketSession.sendMessage(textMessage);
         }
     }
 
+
+    /**
+     * 연결이 끊어지는 시점.
+     */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        log.info("퇴장 : {}", session);
         sessions.remove(session);
-        log.info("퇴장 : {}",  session);
     }
 }

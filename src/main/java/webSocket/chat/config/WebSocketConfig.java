@@ -9,14 +9,11 @@ import webSocket.chat.handler.WebSocketHandler;
 
 @Configuration
 @EnableWebSocket
+@RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
     // 생성자 주입
     private final WebSocketHandler webSocketHandler;
-
-    public WebSocketConfig(WebSocketHandler webSocketHandler){
-        this.webSocketHandler = webSocketHandler;
-    }
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
