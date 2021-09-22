@@ -11,10 +11,11 @@ import webSocket.chat.handler.WebSocketHandler;
 @EnableWebSocket
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
-
     // 생성자 주입
     private final WebSocketHandler webSocketHandler;
-
+    /**
+     * connecting webSocket to "/chat"
+     */
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler, "/chat");
